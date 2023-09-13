@@ -17,8 +17,10 @@ spec:
         {{- include "kubelet-stats-metrics.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: kubelet-stats-metrics
+      {{- if .Values.imagePullSecrets.name }}
       imagePullSecrets:
-        {{- include "kubelet-stats-metrics.imagePullSecrets" . | nindent 8 }}
+        name: {{ .Values.imagePullSecrets.name }}
+      {{- end }}
       containers:
         - name: metrics
           image: {{ .Values.image }}

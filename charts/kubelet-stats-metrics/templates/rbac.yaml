@@ -34,3 +34,31 @@ roleRef:
   kind: ClusterRole
   name: {{ include "kubelet-stats-metrics.fullname" . }}
   apiGroup: rbac.authorization.k8s.io
+{{- if .Values.imagePullSecrets.name }}
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "kubelet-stats-metrics.fullname" . }}-secrets
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "kubelet-stats-metrics.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "kubelet-stats-metrics.fullname" . }}-secrets
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "kubelet-stats-metrics.labels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "kubelet-stats-metrics.fullname" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "kubelet-stats-metrics.fullname" . }}-secrets
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

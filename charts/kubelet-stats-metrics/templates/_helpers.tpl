@@ -36,9 +36,3 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/name: kubelet-stats-metrics
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
-
-{{- define "kubelet-stats-metrics.imagePullSecrets" }}
-{{- if .Values.imagePullSecrets.name }}
-- name: {{ .Values.imagePullSecrets.name }}
-{{- end }}
-{{- end }}
