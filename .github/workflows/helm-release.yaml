@@ -36,6 +36,7 @@ jobs:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
   build:
+    needs: release
     if: needs.release.outputs.changed_charts != ''
     runs-on: ubuntu-latest
     steps:
