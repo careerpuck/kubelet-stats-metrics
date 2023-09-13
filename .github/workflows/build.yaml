@@ -16,7 +16,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=ghcr.io/gdatasoftwareag/kubelet-stats-metrics
+          DOCKER_IMAGE=ghcr.io/careerpuck/kubelet-stats-metrics
           VERSION=edge
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
@@ -38,6 +38,7 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v4
         with:
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name == 'release' }}
           tags: ${{ steps.prep.outputs.tags }}
           labels: |

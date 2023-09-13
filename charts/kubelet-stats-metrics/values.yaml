@@ -1,2 +1,2 @@
-image: ghcr.io/gdatasoftwareag/kubelet-stats-metrics:v0.1.0
+image: ghcr.io/careerpuck/kubelet-stats-metrics:v0.1.1
 logLevel: info
