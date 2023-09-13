@@ -31,7 +31,8 @@ jobs:
 
       - name: Run chart-releaser
         id: chart_releaser
-        uses: helm/chart-releaser-action@main
+        # uses: helm/chart-releaser-action@main
+        uses: careerpuck/chart-releaser-action@jkrall-patch-1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
