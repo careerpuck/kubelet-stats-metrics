@@ -1,2 +1,2 @@
-image: ghcr.io/careerpuck/kubelet-stats-metrics:kubelet-stats-metrics-0.1.7
+image: ghcr.io/careerpuck/kubelet-stats-metrics:kubelet-stats-metrics-0.1.8
 logLevel: info
