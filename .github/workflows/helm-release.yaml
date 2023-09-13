@@ -12,6 +12,9 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    outputs:
+      chart_version: ${{ steps.chart_releaser.outputs.chart_version }}
+      changed_charts: ${{ steps.chart_releaser.outputs.changed_charts }}    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,6 +30,40 @@ jobs:
         uses: azure/setup-helm@v3
 
       - name: Run chart-releaser
+        id: chart_releaser
         uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  build:
+    if: needs.release.outputs.changed_charts != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3      
+      - name: Prepare
+        id: prep
+        run: |
+          DOCKER_IMAGE=ghcr.io/careerpuck/kubelet-stats-metrics
+          VERSION=${{needs.release.outputs.chart_version}}
+          TAGS="${DOCKER_IMAGE}:${VERSION},${DOCKER_IMAGE}:${VERSION}-${GITHUB_SHA::8}"
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+      - name: Login to Github Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.prep.outputs.tags }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
