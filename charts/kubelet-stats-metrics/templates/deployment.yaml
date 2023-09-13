@@ -19,7 +19,7 @@ spec:
       serviceAccountName: kubelet-stats-metrics
       {{- if .Values.imagePullSecretsName }}
       imagePullSecrets:
-        name: {{ .Values.imagePullSecretsName }}
+        - name: {{ .Values.imagePullSecretsName }}
       {{- end }}
       containers:
         - name: metrics
