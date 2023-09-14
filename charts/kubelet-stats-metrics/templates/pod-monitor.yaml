@@ -10,7 +10,7 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      k8s-app: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ .Release.Name }}
   podMetricsEndpoints:
     - port: http
       interval: 30s
