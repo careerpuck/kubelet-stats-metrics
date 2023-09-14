@@ -8,6 +8,28 @@ entries:
           url: https://github.com/careerpuck/kubelet-stats-metrics
       artifacthub.io/prerelease: "false"
     apiVersion: v2
+    appVersion: 0.1.14
+    created: "2023-09-14T07:29:50.794113178Z"
+    description: Expose kubelet stats metrics to prometheus
+    digest: 0581d22a24c07b5eb214e6a95235d8fc158979ec4f1449849a6fa31e81d36858
+    home: https://github.com/careerpuck/kubelet-stats-metrics
+    keywords:
+    - kubernetes
+    - metrics
+    kubeVersion: '>=1.21.0-0'
+    name: kubelet-stats-metrics
+    sources:
+    - https://github.com/careerpuck/kubelet-stats-metrics
+    urls:
+    - kubelet-stats-metrics-0.1.14.tgz
+    version: 0.1.14
+  - annotations:
+      artifacthub.io/license: MIT
+      artifacthub.io/links: |
+        - name: Documentation
+          url: https://github.com/careerpuck/kubelet-stats-metrics
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
     appVersion: 0.1.13
     created: "2023-09-14T06:05:38.019413817Z"
     description: Expose kubelet stats metrics to prometheus
@@ -287,4 +309,4 @@ entries:
     urls:
     - https://github.com/careerpuck/kubelet-stats-metrics/releases/download/kubelet-stats-metrics-0.1.1/kubelet-stats-metrics-0.1.1.tgz
     version: 0.1.1
-generated: "2023-09-14T06:05:38.019496718Z"
+generated: "2023-09-14T07:29:50.79422808Z"
